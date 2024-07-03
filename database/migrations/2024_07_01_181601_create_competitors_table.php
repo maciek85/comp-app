@@ -31,8 +31,22 @@ return new class extends Migration
             $table->foreignUuid('class_id');
         });
 
-
-
+        Schema::create('events', function (Blueprint $table) {
+            $table->string('event_name', length:50);
+            $table->uuid('event_id');
+            $table->timestamps();
+            $table->date('event_date');
+            $table->string('event_description', length:255);
+            $table->string('event_rules', length:255);
+        });
+        
+        Schema::create('competitions', function (Blueprint $table) {
+            $table->uuid('competition_id');
+            $table->timestamps();
+            $table->integer('competition_max_points');
+            $table->string('competition_name', length:50);
+            $table->string('competition_description', length:255);
+        });
     }
 
     /**
