@@ -47,6 +47,17 @@ return new class extends Migration
             $table->string('competition_name', length:50);
             $table->string('competition_description', length:255);
         });
+
+        Schema::create('competition_event_competetitor_team', function (Blueprint $table) {
+            $table->timestamps();
+            $table->foreignUuid('competition_id');
+            $table->foreignUuid('event_id');
+            $table->foreignUuid('competitor_id');
+            $table->foreignUuid('team_id');
+            $table->integer('competitor_start_number');
+            $table->integer('points');
+            $table->json('list_of_points',[0,0,0,0,0,0,0,0,0,0]);
+        });
     }
 
     /**

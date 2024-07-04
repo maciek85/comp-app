@@ -1,25 +1,52 @@
 <x-app-layout>
+    <div class="container mx-auto flex flex-col items-center justify-center h-screen">
+        <h1 class="text-2xl  mb-4">Map </h1>
+        <div class="w-full max-w-4xl">
+            <div id="map" class="w-full h-96"></div>
+        </div>
+    </div>
+    <script>
+       
+       const map = L.map('map').setView([49.24939, 22.69693], 18);
+       const API_KEY = `{{env('MAP_CZ_API_KEY')}}`;
+/*
+Then we add a raster tile layer with Mapy NG tiles
+See https://leafletjs.com/reference.html#tilelayer
+*/
+L.tileLayer(`https://api.mapy.cz/v1/maptiles/outdoor/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+  minZoom: 0,
+  maxZoom: 19,
+  attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}).addTo(map);
 
-<div class="container">
-    <h1>Leaflet Map</h1>
-    <div id="map" style="height: 500px;"></div>
-</div>
+/*
+We also require you to include our logo somewhere over the map.
+We create our own map control implementing a documented interface,
+that shows a clickable logo.
+See https://leafletjs.com/reference.html#control
+*/
+const LogoControl = L.Control.extend({
+  options: {
+    position: 'bottomleft',
+  },
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Initialize the map and set its view to your chosen geographical coordinates and a zoom level
-        var map = L.map('map').setView([49.254330, 22.690372], 14);
+  onAdd: function (map) {
+    const container = L.DomUtil.create('div');
+    const link = L.DomUtil.create('a', '', container);
 
-        // Add a tile layer to add to our map, in this case it's a OSM tile layer.
-        // Creating a tile layer usually involves setting the URL template for the tiles.
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    link.setAttribute('href', 'http://mapy.cz/');
+    link.setAttribute('target', '_blank');
+    link.innerHTML = '<img src="https://api.mapy.cz/img/api/logo.svg" />';
+    L.DomEvent.disableClickPropagation(link);
 
-        // Add a marker at the center of the map
-        var marker = L.marker([49.254330, 22.690372]).addTo(map);
-        marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-    });
-</script>
+    return container;
+  },
+});
+
+// finally we add our LogoControl to the map
+new LogoControl().addTo(map);
+ 
+
+    </script>
 
 </x-app-layout>
