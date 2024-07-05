@@ -9,15 +9,38 @@
        
        const map = L.map('map').setView([49.24939, 22.69693], 18);
        const API_KEY = `{{env('MAP_CZ_API_KEY')}}`;
+
+const tileLayers = {
+	'Basic': L.tileLayer(`https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+    minZoom: 0,
+    maxZoom: 19,
+    attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}),
+	'Outdoor': L.tileLayer(`https://api.mapy.cz/v1/maptiles/outdoor/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+    minZoom: 0,
+    maxZoom: 19,
+    attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}),
+	'Winter': L.tileLayer(`https://api.mapy.cz/v1/maptiles/winter/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+    minZoom: 0,
+    maxZoom: 19,
+    attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}),
+	'Aerial': L.tileLayer(`https://api.mapy.cz/v1/maptiles/aerial/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+    minZoom: 0,
+    maxZoom: 19,
+    attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}),
+};
+
 /*
-Then we add a raster tile layer with Mapy NG tiles
+Then we add the first raster tile layer to the map.
 See https://leafletjs.com/reference.html#tilelayer
 */
-L.tileLayer(`https://api.mapy.cz/v1/maptiles/outdoor/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
-  minZoom: 0,
-  maxZoom: 19,
-  attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
-}).addTo(map);
+tileLayers['Outdoor'].addTo(map);
+
+// Leaflet has a built-in map control for switching layers.
+L.control.layers(tileLayers).addTo(map);
 
 /*
 We also require you to include our logo somewhere over the map.
