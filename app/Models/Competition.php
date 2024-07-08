@@ -18,4 +18,6 @@ class Competition extends Model
         'competition_description',
     ];
     protected $primaryKey = 'competition_id';
+
+    
 }

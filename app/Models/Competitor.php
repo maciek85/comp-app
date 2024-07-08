@@ -20,4 +20,9 @@ class Competitor extends Model
     ];
 
     protected $primaryKey = 'competitor_id';
+
+    // public function competitionResults(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(CompetitionEventCompetitorTeam::class,);
+    // }
 }

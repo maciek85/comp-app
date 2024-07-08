@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\EventResultsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +30,10 @@ Route::resource('events', EventController::class)
 ->middleware(['auth', 'verified']);
 
 Route::resource('competitions', CompetitionController::class)
+->only(['index', 'store'])
+->middleware(['auth', 'verified']);
+
+Route::resource('results', EventResultsController::class)
 ->only(['index', 'store'])
 ->middleware(['auth', 'verified']);
 

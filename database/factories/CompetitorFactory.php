@@ -23,8 +23,6 @@ class CompetitorFactory extends Factory
         return [
             'first_name' => fake()->firstName(),
             'last_name'=> fake()->lastName(),
-            'team_id'=> Team::query()->inRandomOrder()->first()->team_id,
-            'class_id'=> CompetitorClass::query()->inRandomOrder()->first()->class_id,
         ];
     }
 }

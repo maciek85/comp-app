@@ -13,11 +13,14 @@ class CompetitorController extends Controller
      */
     public function index()
     {
-        $competitors = Competitor::all();
         $competitors_data = DB::table("competitors")
-            ->join("teams", "competitors.team_id", "=", "teams.team_id")
-            ->join("competitor_classes", "competitors.class_id", "=", "competitor_classes.class_id")
-            ->select("competitors.*", "teams.team_name", "competitor_classes.class_name")
+            ->join("event_competitor_start_number", "competitors.competitor_id", "=", "event_competitor_start_number.competitor_id")
+            ->join("event_competitor_class", "competitors.competitor_id", "=", "event_competitor_class.competitor_id")
+            ->join("competitor_classes","event_competitor_class.class_id","=","competitor_classes.class_id")
+            ->join("event_competitor_team","competitors.competitor_id","=","event_competitor_team.competitor_id")
+            ->join("teams","event_competitor_team.team_id","=","teams.team_id")
+            ->select("event_competitor_start_number.competitor_start_number",
+             "competitors.first_name", "competitors.last_name", "competitor_classes.class_name", 'teams.team_name')
             ->get();
         return view('competitors.index', ["competitors" => $competitors_data]);
     }

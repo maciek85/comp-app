@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="container mx-auto flex flex-col items-center justify-center h-screen">
-        <h1 class="text-2xl  mb-4">Map </h1>
-        <div class="w-full max-w-4xl">
+    <div class="container mx-auto flex flex-col items-center justify-center max-h-screen">
+        <h1 class="text-2xl mb-4">Map </h1>
+        <div class="w-full max-w-4xl h-96">
             <div id="map" class="w-full h-96"></div>
         </div>
     </div>
@@ -68,7 +68,25 @@ const LogoControl = L.Control.extend({
 
 // finally we add our LogoControl to the map
 new LogoControl().addTo(map);
- 
+
+map.locate({setView: true, maxZoom: 16});
+
+function onLocationFound(e) {
+    var radius = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+    alert(e.message);
+}
+
+map.on('locationerror', onLocationError);
 
     </script>
 

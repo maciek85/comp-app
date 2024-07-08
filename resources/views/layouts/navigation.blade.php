@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('competitions.index')" :active="request()->routeIs('competitions')">
                         {{ __('Competitions') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('results.index')" :active="request()->routeIs('results')">
+                        {{ __('Results') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('map.index')" :active="request()->routeIs('map')">
                         {{ __('Map') }}
                     </x-nav-link>
@@ -97,6 +100,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('competitions.index')" :active="request()->routeIs('competitions')">
                 {{ __('Competitions') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('results.index')" :active="request()->routeIs('results')">
+                {{ __('Results') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('map.index')" :active="request()->routeIs('map')">
                 {{ __('Map') }}

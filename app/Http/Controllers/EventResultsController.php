@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CompetitorClass;
+use App\Models\EventResults;
 use Illuminate\Http\Request;
-
-class CompetitorClassController extends Controller
+use Illuminate\Support\Facades\DB;
+class EventResultsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $event_results = collect(DB::select('SELECT * from get_event_results()'));
+
+          
+        return view('results.index', ["event_results" => $event_results]);
     }
 
     /**
@@ -34,7 +37,7 @@ class CompetitorClassController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CompetitorClass $competitorClass)
+    public function show(EventResults $eventResults)
     {
         //
     }
@@ -42,7 +45,7 @@ class CompetitorClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CompetitorClass $competitorClass)
+    public function edit(EventResults $eventResults)
     {
         //
     }
@@ -50,7 +53,7 @@ class CompetitorClassController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CompetitorClass $competitorClass)
+    public function update(Request $request, EventResults $eventResults)
     {
         //
     }
@@ -58,7 +61,7 @@ class CompetitorClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CompetitorClass $competitorClass)
+    public function destroy(EventResults $eventResults)
     {
         //
     }

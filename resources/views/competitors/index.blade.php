@@ -5,7 +5,9 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <ul>
                 @foreach ($competitors as $competitor)
-                    <div>{{ $competitor-> first_name }} | {{ $competitor -> team_name}} | {{$competitor -> class_name}} </div>
+                    <div>{{ $competitor-> competitor_start_number }} | 
+                        {{ $competitor-> first_name }} | {{ $competitor -> last_name}}
+                    | {{ $competitor->class_name}} | {{ $competitor->team_name }} </div>
                 @endforeach
                 </ul>
 </x-app-layout>
