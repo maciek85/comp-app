@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\EventResults;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Team;
+use App\Models\CompetitorClass;
 class EventResultsController extends Controller
 {
     /**
@@ -12,10 +14,13 @@ class EventResultsController extends Controller
      */
     public function index()
     {
+
+        $teams = Team::all();
+        $competitor_classes = CompetitorClass::all();
         $event_results = collect(DB::select('SELECT * from get_event_results()'));
 
           
-        return view('results.index', ["event_results" => $event_results]);
+        return view('results.index', ["event_results" => $event_results, "teams" => $teams, "competitor_classes" => $competitor_classes]);
     }
 
     /**
