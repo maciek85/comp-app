@@ -18,7 +18,6 @@
             }
         }">
             <!-- Class filter -->
-             <div >
             <div class="mb-4">
                 <label class="font-medium mb-2">Filter by Class:</label>
                 <select x-model="classFilter" @change="applyFilters()">
@@ -32,18 +31,18 @@
             <!-- Team filter -->
             <div class="mb-4" >
                 <label class="font-medium mb-2">Filter by Team:</label>
-                <select   x-model="teamFilter" @change="applyFilters()">
+                <select  x-model="teamFilter" @change="applyFilters()">
                     <option value="all">All</option>
                     <template x-for="team in teams">
                         <option x-text="team.team_name" :value="team.team_name"></option>
                     </template>
                 </select>
             </div>
-            </div>
             <!-- Display filtered items -->
                 <table class="min-w-full leading-normal">
                 <thead>
-                    <tr><th>Pos.</th><th>Start no.</th><th>First Name</th><th>Last Name</th><th>Class</th><th>Team</th><th>Points</th></tr></thead>
+                    <tr><th>Pos.</th><th>Start no.</th><th>First Name</th><th>Last Name</th>
+                    <th>Class</th><th>Team</th><th>Points</th></tr></thead>
                <tbody>
                     <template  x-for="(item) in items" :key="item.competitor_start_number">
                         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" x-show="matchesFilters(item)" >
@@ -66,6 +65,7 @@
                             <td >
                                 <p class="text-gray-600" x-text=item.total_points></p>
                             </td>
+                           
                         </tr>
                     </template>
                         </tbody>
