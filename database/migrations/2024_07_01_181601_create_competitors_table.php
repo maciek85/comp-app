@@ -69,6 +69,7 @@ return new class extends Migration
             $table->integer('competitor_start_number');
             $table->primary(['event_id', 'competitor_id', 'competitor_start_number']);
         });
+
         Schema::create('event_competitor_start_number_team_class', function (Blueprint $table){
             $table->timestamps();
             $table->foreignUuid('event_id')->references('event_id')->on('events');
