@@ -69,6 +69,17 @@ return new class extends Migration
             $table->integer('competitor_start_number');
             $table->primary(['event_id', 'competitor_id', 'competitor_start_number']);
         });
+
+        Schema::create('event_competitor_start_number_team_class', function (Blueprint $table){
+            $table->timestamps();
+            $table->foreignUuid('event_id')->references('event_id')->on('events');
+            $table->foreignUuid('competitor_id')->references('competitor_id')->on('competitors');
+            $table->foreignUuid('team_id')->references('team_id')->on('teams');
+            $table->foreignUuid('class_id')->references('class_id')->on('competitor_classes');
+            $table->integer('competitor_start_number');
+            $table->primary(['event_id', 'competitor_id']);
+        });
+        
         Schema::create('event_competitor_competition', function (Blueprint $table) {
             $table->timestamps();
             $table->foreignUuid('competition_id')->references('competition_id')->on('competitions');
