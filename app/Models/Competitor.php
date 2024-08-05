@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Competitor extends Model
 {
@@ -21,8 +22,8 @@ class Competitor extends Model
 
     protected $primaryKey = 'competitor_id';
 
-    // public function competitionResults(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(CompetitionEventCompetitorTeam::class,);
-    // }
+    public function competitions(): BelongsToMany
+    {
+        return $this->belongsToMany(Competition::class, 'event_competitor_competition', 'competitor_id', 'competition_id');
+    } 
 }

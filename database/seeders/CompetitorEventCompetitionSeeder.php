@@ -16,6 +16,13 @@ use App\Models\CompetitionEventCompetitorTeam;
 class CompetitorEventCompetitionSeeder extends Seeder
 {
 
+    static function generateTenIntegers(){
+        $numbers = [];
+    for ($i = 0; $i < 10; $i++) {
+        $numbers[] = rand(0, 10);
+    }
+    return $numbers;
+    }
     /**
      * Run the database seeds.
      *
@@ -34,11 +41,12 @@ class CompetitorEventCompetitionSeeder extends Seeder
                 $competitor_id = $competitors[$i]->competitor_id;
                 $event_id = $events->first()->event_id;
                 for($j = 0; $j < count($competitions); $j++) {
-                $points = rand(0, 100);
-                $random_number_array = range(0, 100);
-                shuffle($random_number_array );
-                $random_number_array = array_slice($random_number_array ,0,10);
-                $list_of_points = $random_number_array;
+                $list_of_points = CompetitorEventCompetitionSeeder::generateTenIntegers();
+                // $points = rand(0, 100);
+                // $random_number_array = range(0, 100);
+                // shuffle($random_number_array );
+                // $random_number_array = array_slice($random_number_array ,0,10);
+                $points = array_sum($list_of_points);
                 $list_of_points_pg = "{".implode(",", $list_of_points)."}";
                 $data[] = [
                     'created_at' => now(),

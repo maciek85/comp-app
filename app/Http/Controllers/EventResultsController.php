@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competitor;
 use App\Models\EventResults;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Team;
 use App\Models\CompetitorClass;
+use App\Models\CompetitionEventCompetitor;
+
 class EventResultsController extends Controller
 {
     /**
@@ -14,11 +17,16 @@ class EventResultsController extends Controller
      */
     public function index()
     {
+        $competitors = Competitor::first();
 
+        
         $teams = Team::all();
         $competitor_classes = CompetitorClass::all();
-        $event_results = collect(DB::select('SELECT * from get_event_results()'));
-
+        $results = DB::select('SELECT * from get_event_results()');
+        $event_results = collect($results)->map(function ($x) {
+            $model = new CompetitionEventCompetitor();
+            return $model->newFromBuilder($x);
+        });
           
         return view('results.index', ["event_results" => $event_results, "teams" => $teams, "competitor_classes" => $competitor_classes]);
     }
@@ -42,9 +50,9 @@ class EventResultsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EventResults $eventResults)
+    public function show(EventResults $competitorId)
     {
-        //
+        
     }
 
     /**

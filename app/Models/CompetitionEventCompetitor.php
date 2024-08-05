@@ -13,20 +13,35 @@ class CompetitionEventCompetitor extends Model
 
 
     protected $fillable = [
-        'competition_id',
-        'event_id',
-        'competitor_id',
-        'points',
-        'list_of_points',
+        'competitor_position',
+        'competitor_start_number',
+        'first_name',
+        'last_name',
+        'class_name',
+        'team_name',
+        'comp_1',
+        'comp_2',
+        'comp_3',
+        'total_points',
+        'concatenated_list_of_points',
+
     ];
 
     // protected $primaryKey = 'competition_event_competitor_team_id';
 
 
     // Accessor to automatically convert list_of_points from database format to a PHP array
-    public function getListOfPointsAttribute($value)
+    public function getConcatenatedListOfPointsAttribute($value)
     {
-        return $value ? explode(',', trim($value, "{}")) : [];
+        $result = json_decode($value, true);
+    
+    // Check if json_decode was successful
+    if (json_last_error() === JSON_ERROR_NONE) {
+        return $result;
+    } else {
+        // Handle the error or return an empty array if the string cannot be decoded
+        return [];
+    }
     }
 
     // Mutator to automatically convert list_of_points from a PHP array to database format

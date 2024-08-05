@@ -34,7 +34,7 @@ BEGIN
     -- Your query
     RETURN QUERY
   select 
-row_number() over (order by cast(sum(subquery.points) as integer) desc) as competitor_position,
+cast(row_number() over (order by sum(subquery.points) desc) as integer) as competitor_position,
 subquery.competitor_start_number, subquery.first_name, 
 subquery.last_name, subquery.class_name, subquery.team_name,
 max(Case when rn=1 then subquery.points end ) as comp_1,
