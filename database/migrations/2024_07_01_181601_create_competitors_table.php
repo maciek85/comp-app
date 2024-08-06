@@ -80,6 +80,22 @@ return new class extends Migration
             $table->primary(['event_id', 'competitor_id']);
         });
 
+        Schema::create('event_results', function (Blueprint $table) {
+            $table->timestamps();
+            $table->foreignUuid('competition_id')->references('competition_id')->on('competitions');
+            $table->foreignUuid('event_id')->references('event_id')->on('events');
+            $table->foreignUuid('competitor_id')->references('competitor_id')->on('competitors');
+            $table->foreignUuid('class_id')->references('class_id')->on('competitor_classes');
+            $table->foreignUuid('team_id')->references('team_id')->on('teams');
+            $table->integer('points');
+            $table->integer('no_of_10s');
+            $table->integer('no_of_9s');
+            $table->integer('no_of_8s');
+            $table->primary(['competition_id', 'event_id', 'competitor_id', 'class_id', 'team_id']);
+        });
+
+        DB::statement('ALTER TABLE event_results ADD COLUMN list_of_points INTEGER[10]');
+
         Schema::create('event_competitor_competition', function (Blueprint $table) {
             $table->timestamps();
             $table->foreignUuid('competition_id')->references('competition_id')->on('competitions');
